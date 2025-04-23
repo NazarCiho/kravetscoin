@@ -1,0 +1,455 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+.container {
+    position: relative;
+    bottom:45px;
+}
+.bg-img {
+   
+    width: 100%;
+    height: 100vh; /* Висота 100% екрану */
+}
+/* LOCK BUTTON */
+.button-long {
+    position: absolute;
+    top: 91%;  /* Вертикальне вирівнювання */
+    left: 50%; /* Горизонтальне вирівнювання */
+    transform: translate(-50%, -50%); /* Центрування кнопки */
+    background-color: white;
+    width: 92%;
+    height: 7.5%;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+    box-shadow: 0px 5px 0px #717171;
+    -webkit-tap-highlight-color: transparent; /* Для WebKit (Safari, Chrome) */
+    transition: transform 0.1s, box-shadow 0.1s; /* Додаємо плавний перехід */
+
+}
+.button-long:active {
+    transform: translate(-50%, -50%) scale(0.98); /* Зменшуємо розмір кнопки */
+    box-shadow: 0px 2px 0px #717171; /* Зменшуємо тінь при натисканні */
+}
+.button-long img {
+    width: 11.5%; /* Ширина зображення */
+    height: auto; /* Автоматична висота */
+}
+/* CLICK BUTTON */
+.button-click{
+    position: absolute;
+    top: 65%;  /* Вертикальне вирівнювання */
+    left: 50%; /* Горизонтальне вирівнювання */
+    transform: translate(-50%, -50%); /* Центрування кнопки */
+    background-color: transparent;
+    width: 75%;
+    height: 40%;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+    -webkit-tap-highlight-color: transparent; /* Для WebKit (Safari, Chrome) */
+
+}
+.button-click img {
+    width: 228px; /* Ширина зображення */
+    height: auto; /* Автоматична висота */
+}
+/* BALANCE */
+.money{
+    position: absolute;
+    top: 42%;  /* Вертикальне вирівнювання */
+    left: 48%; /* Горизонтальне вирівнювання */
+    transform: translate(-50%, -50%); /* Центрування кнопки */
+    background-color: transparent;
+
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+    gap: 10px;
+}
+.money img {
+    width: 15%; /* Ширина зображення */
+    height: auto; /* Автоматична висота */
+}
+.money h1{
+    color:white;
+    font-size: 45px;
+    font-weight: 1000;
+}
+/* BALANCE NAME */
+.nameBalance{
+    position: absolute;
+    top: 35%;  /* Вертикальне вирівнювання */
+    left: 49%; /* Горизонтальне вирівнювання */
+    transform: translate(-50%, -50%); /* Центрування кнопки */
+    background-color: transparent;
+
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+}
+.nameBalance h3{
+    color:rgb(141, 0, 169);
+    font-size: 20px;
+    font-weight: 1000;
+}
+.buttons-smal {
+    display: flex;
+    justify-content: space-between; /* Розподіл кнопок */
+    width: 92%; /* Ширина контейнера */
+    position: absolute;
+    top: 18.5%;  /* Вертикальне вирівнювання */
+    left: 50%; /* Горизонтальне вирівнювання */
+    transform: translateX(-50%); /* Центрування по горизонталі */
+}
+
+.button-small {
+    -webkit-tap-highlight-color: transparent; /* Для WebKit (Safari, Chrome) */
+    background-color: white;
+    width: 30%; /* Ширина кожної кнопки */
+    height: 30%;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    display: flex;
+    height: 7vh;
+    box-shadow: 0px 5px 0px #717171;
+    transition: transform 0.1s, box-shadow 0.1s; /* Плавний перехід */
+}
+
+.button-small:active {
+    transform: translateY(2px); /* Зсув вниз при натисканні */
+    box-shadow: 0px 2px 0px #717171; /* Зменшення тіні при натисканні */
+}
+.bar-button{
+    position: absolute;
+    top: 30%;  /* Вертикальне вирівнювання */
+    left: 50%; /* Горизонтальне вирівнювання */
+    transform: translate(-50%, -50%); /* Центрування кнопки */
+    background: linear-gradient(to right, #e36f08, #faf712);
+    width: 92%;
+    height: 1.5%;
+    border: 2.5px solid #888888;
+    border-radius: 15px;
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+    -webkit-tap-highlight-color: transparent; /* Для WebKit (Safari, Chrome) */
+
+}
+.profile{
+    position: absolute;
+    top: 7%;  /* Вертикальне вирівнювання */
+    left: 5%; /* Горизонтальне вирівнювання */
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    gap: 10px;
+}
+.profile img {
+    width: 8.5%; /* Ширина зображення */
+    height: auto; /* Автоматична висота */
+    border-radius: 35%;
+}
+.profile h3{
+    color:white;
+    font-size: 18px;
+    font-weight: 1000;
+}
+.front {
+    will-change: transform;
+    transition: transform 100ms;
+}
+
+.button-click:hover .front {
+    transform: translateY(4px);
+
+}
+
+.button-click:active .front {
+    transform: translateY(-2px);
+    transform: perspective(500px) rotateY(15deg);
+
+}
+.timeerror{
+    position: absolute;
+    display: none;
+    background-color: rgb(88, 88, 88);
+    color:white;
+    width: 70%;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    top:62%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрування кнопки */
+    height: 40%;
+    border-radius: 50%;
+    border:solid, 3px,#ececec;
+}
+.texterror{
+    position: absolute;
+    top: 42%;
+    left: 19%;
+}
+.unit {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    transition: transform 0.5s, opacity 0.5s;
+    opacity: 1;
+}
+.tranparing{
+    position: absolute;
+    display: none;
+    background-color: rgb(36, 36, 46);
+    height: 85%;
+    width: 100%;
+    top:15.5%;
+    border-top-right-radius: 2%;
+    border-top-left-radius: 2%;
+    border-top: 3px solid #ececec;
+    z-index: 0;
+}
+.close {
+    -webkit-tap-highlight-color: transparent; /* Для WebKit (Safari, Chrome) */
+    position: absolute;
+    top: 17%;  /* Вертикальне вирівнювання */
+    left: 85%; /* Горизонтальне вирівнювання */
+    background-color: transparent;
+    width: 10.5%;
+    height: auto;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+    display: none;
+}
+.close img {
+    width: 100%; /* Ширина зображення */
+    height: auto; /* Автоматична висота */
+}
+.but1{
+    display: flex; /* Використання flex для центрування */
+    align-items: center; /* Центрування по вертикалі */
+    justify-content: center; /* Центрування по горизонталі */
+}
+.but1 img {
+    width: 55%; /* Ширина зображення */
+    height: auto; /* Автоматична висота */
+}
+/* СТИЛІ ДЛЯ КНОПКИ ВІДТВОРЕННЯ АУДІО */
+.audio-button {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff7f50;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 18px;
+    color: white;
+    box-shadow: 0px 5px 0px #717171;
+    -webkit-tap-highlight-color: transparent;
+}
+.audio-button:hover {
+    background-color: #ff6347;
+}
+.tab{
+    display: none;
+    position: absolute;
+    top:18%;
+    left:6%;
+    z-index: 999;
+}
+.tabs{
+    position: absolute;
+    top:97.04%;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    width: 100%;
+    background-color: #111112;
+    z-index: 1000;
+    height: 60px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    box-shadow: 0 -2px 7px rgb(255, 255, 255);
+
+}
+.tablinks{
+    position: relative; /* Додаємо для позиціонування псевдоелемента */
+    margin-top: 5px;
+    height: 13vw;
+    width: 14vw;
+    background-color: #111112;
+    border: none;
+    border-radius: 1.8vh;
+    color: #989898;
+    transition: 0.3s ease;    
+    font-weight: 700;
+    color: rgb(197, 197, 197);
+    
+}
+.tablinks img {
+    width: 70%;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    /* Базовий білий колір для неактивних іконок */
+    filter: brightness(0) invert(1);
+}
+.tablinks-active{
+    color: #b364dB;
+}
+.tablinks-active img {
+    /* Змінюємо на м'якший фільтр, який зберігає деталі */
+    filter: brightness(1.2) contrast(1.2) 
+           drop-shadow(0 0 0 #b364dB);
+}
+/* Додаємо стилі для лінії */
+@keyframes lineExpand {
+    from {
+        width: 0px;
+        opacity: 0;
+    }
+    to {
+        width: 25px;
+        opacity: 1;
+    }
+}
+
+.tablinks-active::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 3px;
+    background-color: #b364dB;
+    border-radius: 2px;
+    animation: lineExpand 0.3s ease-out forwards; /* Додаємо анімацію */
+}
+.tablinks p{
+    margin: 0px;
+}
+.all-player{
+    margin-top: 10px;
+    padding: 10px;
+    padding-top: 5px;
+    background-color: #ffffff;
+    width: 81vw;
+    border-radius: 10px;
+}
+.all-player p {
+    margin:3px;
+    margin-bottom: 7px;
+}
+.player {
+    display: flex;
+    gap:4px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 7px;
+    padding: 3px 3px 0px 3px;
+    position: relative; /* Для правильного позиціонування time-display */
+    overflow: visible; /* Дозволяє time-display виходити за межі */
+}
+.play-pause {
+    padding: 5px 5px 2px 5px;
+    font-size: 16px;
+    border: none;
+    border-radius: 100px;
+    background-color: #ffffff;
+    color: white;
+    cursor: pointer;
+    width: 16%;
+    text-align: center;
+}
+.status-bar {
+    margin-top: 16px;
+    width: 80%;
+    height: 15px;
+    background: #2d2e3e;
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer; /* Показує що можна клікати */
+    -webkit-tap-highlight-color: transparent;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #9947c2, #9947c2);
+    position: relative;
+    transition: width 0.1s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* Додаємо точку на прогрес барі */
+.progress::after {
+    content: '';
+    position: absolute;
+    right: -4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: #b364dB;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(179, 100, 219, 0.8);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.status-bar:hover .progress::after {
+    opacity: 1;
+}
+
+.play-pause img{
+    width: 100%;
+    border-radius: 50px;
+    height: auto;
+    object-fit: cover;
+    transition: 0.4s ease;
+}
+.play-pause img:hover{
+    background-color: #dad0ff;
+}
+.time-display {
+    position: absolute;
+    right: -75px; /* Збільшено відступ справа */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: white; /* Змінено колір на білий для кращої видимості */
+    white-space: nowrap;
+    z-index: 1000; /* Додано z-index щоб текст був поверх інших елементів */
+}
+.time-display {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: #fff;
+}
+
