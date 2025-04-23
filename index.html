@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Головна сторінка</title>
+</head>
+<body>
+    <div class="container">
+        <img class="bg-img" src="https://i.ibb.co/hdXHf1D/background.jpg">
+        <div id="user-info" class="profile">
+            <img id="user-photo" src="https://via.placeholder.com/100" alt="User Photo">
+            <h3 id="user-name">Ім'я користувача</h3>
+        </div>
+
+        <div class="buttons-smal">
+            <button id="button1" class="button-small but1">
+                <img style="margin-left:-5px"src="https://i.postimg.cc/XJJgQDJD/an-icon-representing-improvements-with-a-maximum-of-three-colors-white-yellow-red-black-symboli.png" alt="">
+                <h4 style="margin-left:-3px" >Upgrade</h4>
+            </button>
+            <button id="button2" class="button-small but2"></button>
+            <button id="button3" class="button-small but3"></button>
+        </div>
+
+        <div class="tabs">
+            <button class="tablinks" onclick="openTab(event, 'tab1')"
+                data-default-icon="https://cdn-icons-png.flaticon.com/512/1946/1946488.png"
+                data-active-icon="https://i.ibb.co/rZwwBgy/image-1.png">
+                <img src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png" alt="">
+                <p>Home</p>
+            </button>
+            <button class="tablinks" onclick="openTab(event, 'tab2')"
+                data-default-icon="https://cdn-icons-png.flaticon.com/512/839/839860.png"
+                data-active-icon="https://i.ibb.co/1Ty4ZjV/image-4.png">
+                <img src="https://cdn-icons-png.flaticon.com/512/839/839860.png" alt="">
+                <p>Tasks</p>
+            </button>
+            <button class="tablinks" onclick="openTab(event, 'tab3')"
+                data-default-icon="https://cdn-icons-png.flaticon.com/512/1500/1500455.png"
+                data-active-icon="https://i.ibb.co/SVWxb1y/image-3.png">
+                <img src="https://cdn-icons-png.flaticon.com/512/1500/1500455.png" alt="">
+                <p>Friends</p>
+            </button>
+            <button class="tablinks" onclick="openTab(event, 'tab4')"
+                data-default-icon="https://cdn-icons-png.flaticon.com/512/2527/2527857.png"
+                data-active-icon="https://i.ibb.co/HrjLnP3/image-2.png">
+                <img src="https://cdn-icons-png.flaticon.com/512/2527/2527857.png" alt="">
+                <p>Wallet</p>
+            </button>
+
+
+        </div>
+        <div id="tab1" class="tab">
+            <h2>Вкладка 1</h2>
+            <p>Вміст для вкладки 1.</p>
+        </div>
+        <!-- https://cdn-icons-png.flaticon.com/512/16/16427.png  pause-->
+        <!-- https://cdn-icons-png.flaticon.com/512/0/375.png    play-->
+        <!-- Вкладка 2 -->
+        <div id="tab2" class="tab">
+            <div class="all-player">
+                <p>Vanya Criminal</p>
+                <div class="player">
+                  <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
+                  <div class="status-bar">
+                    <div class="progress"></div>
+                  </div>
+                </div>
+                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/Vanya%20Criminal.mp3"></audio>
+              </div>
+
+              <div class="all-player">
+                <p>Vanya Criminal2</p>
+                <div class="player">
+                    <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
+                    <div class="status-bar">
+                    <div class="progress"></div>
+                  </div>
+                </div>
+                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/Vanya%20Criminal2.mp3"></audio>
+              </div>
+
+              <div class="all-player">
+                <p>Тапаєм Кравця</p>
+                <div class="player">
+                    <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
+                    <div class="status-bar">
+                    <div class="progress"></div>
+                  </div>
+                </div>
+                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/kravetscoion2.mp3"></audio>
+              </div>
+
+              <div class="all-player">
+                <p>Кравець Коін</p>
+                <div class="player">
+                    <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
+                    <div class="status-bar">
+                    <div class="progress"></div>
+                  </div>
+                </div>
+                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/Kravets%20Coin%20.mp3"></audio>
+              </div>
+
+        </div>
+        <!-- Вкладка 3 -->
+        <div id="tab3" class="tab">
+            <p>ТУТ ШЕ ПУСТО</p>
+        </div>
+        <!-- Вкладка 4 -->
+        <div id="tab4" class="tab">
+            <h2>Вкладка 4</h2>
+            <p>Вміст для вкладки 1.</p>
+        </div>
+        <div class="bar">
+            <button disabled class ="bar-button"></button>
+        </div>
+        <div class="nameBalance">
+            <h3>$VANYA BALANCE:</h3>
+        </div>
+        <div class="money">
+            <img src="https://i.ibb.co/jLVJfTY/coin-mark.png">
+            <h1 id="balance">0</h1>
+        </div>
+        <button class="button-click">
+            <img class="front" src="https://i.ibb.co/NFMdyzb/Ivan-coin-button.png">
+        </button>
+        <button class="button-long" id="sendButton">
+            send data
+            <img src="https://cdn2.iconfinder.com/data/icons/internet/512/Lock-1024.png">
+        </button>
+        <p id="timeerror"class="timeerror"><span class="texterror" >ПОМИЛКА АВТОКЛІКЕР!</span></p>
+        <p id="error-message" style="color: red; display: none;">Занадто багато кліків! Спробуйте пізніше.</p>
+        <div id="trans-bg" class="tranparing"> </div>
+        <button id="close_id" class="close">
+            <img src="https://static-00.iconduck.com/assets.00/window-close-icon-1024x1024-wlckt0l6.png" alt="">
+        </button>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+</html>
