@@ -2,143 +2,202 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Головна сторінка</title>
+    <title>Vanya Coin Tapper</title>
 </head>
 <body>
     <div class="container">
-        <img class="bg-img" src="https://i.ibb.co/hdXHf1D/background.jpg">
-        <div id="user-info" class="profile">
-            <img id="user-photo" src="https://via.placeholder.com/100" alt="User Photo">
-            <h3 id="user-name">Ім'я користувача</h3>
+        <img class="bg-img" src="https://i.ibb.co/hdXHf1D/background.jpg" alt="">
+        <div class="bg-effects" aria-hidden="true">
+            <span class="orb orb-1"></span>
+            <span class="orb orb-2"></span>
+            <span class="orb orb-3"></span>
+            <span class="orb orb-4"></span>
         </div>
 
-        <div class="buttons-smal">
-            <button id="button1" class="button-small but1">
-                <img style="margin-left:-5px"src="https://i.postimg.cc/XJJgQDJD/an-icon-representing-improvements-with-a-maximum-of-three-colors-white-yellow-red-black-symboli.png" alt="">
-                <h4 style="margin-left:-3px" >Upgrade</h4>
-            </button>
-            <button id="button2" class="button-small but2"></button>
-            <button id="button3" class="button-small but3"></button>
+        <!-- Закріплена панель користувача (на всіх вкладках) -->
+        <header id="app-header" class="app-header">
+            <div id="user-info" class="profile">
+                <img id="user-photo" src="https://via.placeholder.com/100" alt="User Photo">
+                <div class="profile-text">
+                    <h3 id="user-name">Завантаження...</h3>
+                    <span id="user-rank" class="rank-badge">Новачок</span>
+                </div>
+                <div class="profile-balance" title="Баланс $VANYA">
+                    <img src="https://i.ibb.co/jLVJfTY/coin-mark.png" alt="" class="profile-coin-icon">
+                    <span id="header-balance">0</span>
+                </div>
+                <button type="button" id="btn-stats" class="btn-stats" title="Статистика">📊</button>
+            </div>
+        </header>
+
+        <!-- Головний екран (тапалка) -->
+        <div class="game-layer" id="game-layer">
+            <div class="buttons-smal">
+                <button type="button" id="btn-shop" class="button-small but1" title="Магазин">
+                    <img src="https://i.postimg.cc/XJJgQDJD/an-icon-representing-improvements-with-a-maximum-of-three-colors-white-yellow-red-black-symboli.png" alt="">
+                    <h4>Shop</h4>
+                </button>
+                <button type="button" id="btn-daily" class="button-small but2" title="Щоденний бонус">
+                    <span class="btn-emoji">🎁</span>
+                    <h4>Daily</h4>
+                </button>
+                <button type="button" id="btn-friends-quick" class="button-small but3" title="Друзі">
+                    <span class="btn-emoji">👥</span>
+                    <h4>Friends</h4>
+                </button>
+            </div>
+
+            <div class="energy-wrap glass-strip">
+                <span class="energy-label">⚡ Енергія</span>
+                <div class="energy-bar">
+                    <div id="energy-fill" class="energy-fill"></div>
+                </div>
+                <span id="energy-text" class="energy-text">500 / 500</span>
+            </div>
+
+            <div class="balance-block">
+                <p class="balance-label">$VANYA BALANCE</p>
+                <div class="money">
+                    <img src="https://i.ibb.co/jLVJfTY/coin-mark.png" alt="coin">
+                    <h1 id="balance">0</h1>
+                </div>
+                <p id="per-tap" class="per-tap">+1 за тап</p>
+            </div>
+            <div class="tap-zone">
+                <button type="button" class="button-click" id="tap-btn" aria-label="Тап">
+                    <img class="front" id="tap-skin" src="https://i.ibb.co/NFMdyzb/Ivan-coin-button.png" alt="coin">
+                </button>
+            </div>
+            <button type="button" id="btn-character" class="btn-character" title="Магазин персонажів"><img class="person-img" src="https://i.ibb.co/BKc718L7/39fff15e-0aa3-4356-9b79-3485a26279a2.jpg" alt=""></button>
+
+            <div class="level-block glass-strip">
+                <div class="level-header">
+                    <span>Рівень <strong id="level-num">1</strong></span>
+                    <span id="level-xp-text">0 / 1 000 XP</span>
+                </div>
+                <div class="bar">
+                    <div id="level-progress" class="bar-fill"></div>
+                </div>
+            </div>
+
         </div>
 
+
+        <!-- Нижня навігація -->
         <div class="tabs">
-            <button class="tablinks" onclick="openTab(event, 'tab1')"
+            <button type="button" class="tablinks" data-tab="home"
                 data-default-icon="https://cdn-icons-png.flaticon.com/512/1946/1946488.png"
                 data-active-icon="https://i.ibb.co/rZwwBgy/image-1.png">
                 <img src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png" alt="">
                 <p>Home</p>
             </button>
-            <button class="tablinks" onclick="openTab(event, 'tab2')"
+            <button type="button" class="tablinks" data-tab="tab2"
                 data-default-icon="https://cdn-icons-png.flaticon.com/512/839/839860.png"
                 data-active-icon="https://i.ibb.co/1Ty4ZjV/image-4.png">
                 <img src="https://cdn-icons-png.flaticon.com/512/839/839860.png" alt="">
                 <p>Tasks</p>
             </button>
-            <button class="tablinks" onclick="openTab(event, 'tab3')"
-                data-default-icon="https://cdn-icons-png.flaticon.com/512/1500/1500455.png"
+            <button type="button" class="tablinks" data-tab="tab3"
+                data-default-icon="https://cdn-icons-png.flaticon.com/512/1055/1055644.png"
                 data-active-icon="https://i.ibb.co/SVWxb1y/image-3.png">
-                <img src="https://cdn-icons-png.flaticon.com/512/1500/1500455.png" alt="">
+                <img src="https://cdn-icons-png.flaticon.com/512/1055/1055644.png" alt="">
+                <p>Boosts</p>
+            </button>
+            <button type="button" class="tablinks" data-tab="tab4"
+                data-default-icon="https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
+                data-active-icon="https://i.ibb.co/HrjLnP3/image-2.png">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt="">
                 <p>Friends</p>
             </button>
-            <button class="tablinks" onclick="openTab(event, 'tab4')"
-                data-default-icon="https://cdn-icons-png.flaticon.com/512/2527/2527857.png"
-                data-active-icon="https://i.ibb.co/HrjLnP3/image-2.png">
-                <img src="https://cdn-icons-png.flaticon.com/512/2527/2527857.png" alt="">
-                <p>Wallet</p>
-            </button>
-
-
         </div>
-        <div id="tab1" class="tab">
-            <h2>Вкладка 1</h2>
-            <p>Вміст для вкладки 1.</p>
-        </div>
-        <!-- https://cdn-icons-png.flaticon.com/512/16/16427.png  pause-->
-        <!-- https://cdn-icons-png.flaticon.com/512/0/375.png    play-->
-        <!-- Вкладка 2 -->
-        <div id="tab2" class="tab">
-            <div class="all-player">
-                <p>Vanya Criminal</p>
-                <div class="player">
-                  <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
-                  <div class="status-bar">
-                    <div class="progress"></div>
-                  </div>
+
+        <!-- Панелі (оверлей) -->
+        <div id="panel-overlay" class="panel-overlay">
+            <header class="panel-topbar">
+                <button type="button" id="close_id" class="close" aria-label="Закрити">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </button>
+            </header>
+
+            <div id="tab1" class="tab panel-scroll panel-animate">
+                <h2 class="panel-title">📊 Статистика</h2>
+                <div class="stat-grid">
+                    <div class="stat-card"><span>Всього тапів</span><strong id="stat-taps">0</strong></div>
+                    <div class="stat-card"><span>Зароблено</span><strong id="stat-earned">0</strong></div>
+                    <div class="stat-card"><span>Друзів</span><strong id="stat-friends">0</strong></div>
+                    <div class="stat-card"><span>Завдань</span><strong id="stat-tasks">0</strong></div>
                 </div>
-                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/Vanya%20Criminal.mp3"></audio>
-              </div>
+                <h3 class="panel-subtitle">🏆 Ранги за рівнем</h3>
+                <ul id="ranks-list" class="ranks-list"></ul>
+            </div>
 
-              <div class="all-player">
-                <p>Vanya Criminal2</p>
-                <div class="player">
-                    <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
-                    <div class="status-bar">
-                    <div class="progress"></div>
-                  </div>
+            <div id="tab2" class="tab panel-scroll panel-animate">
+                <h2 class="panel-title"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="lime" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                  </svg> Завдання</h2>
+                <p class="panel-hint">Виконуй завдання — отримуй монети та XP</p>
+                <div id="tasks-list" class="tasks-list"></div>
+            </div>
+
+            <div id="tab3" class="tab panel-scroll panel-animate">
+                <h2 class="panel-title">🛒 Магазин прокачки</h2>
+                <p class="panel-hint">Прокачуй силу тапу, авто-дохід та енергію</p>
+                <div id="upgrades-list" class="upgrades-list"></div>
+            </div>
+
+            <div id="tab4" class="tab panel-scroll panel-animate">
+                <h2 class="panel-title">👥 Запроси друзів</h2>
+                <p class="panel-hint">Отримуй <strong id="ref-bonus-text">500</strong> $VANYA за кожного друга</p>
+                <div class="referral-box">
+                    <p class="ref-count">Запрошено: <strong id="referral-count">0</strong></p>
+                    <input type="text" id="referral-link" class="ref-input" readonly placeholder="Твоє реферальне посилання">
+                    <button type="button" id="copy-ref" class="buy-button ref-copy-btn">Копіювати посилання</button>
+                    <button type="button" id="share-ref" class="buy-button ref-share-btn">Поділитись у Telegram</button>
                 </div>
-                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/Vanya%20Criminal2.mp3"></audio>
-              </div>
-
-              <div class="all-player">
-                <p>Тапаєм Кравця</p>
-                <div class="player">
-                    <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
-                    <div class="status-bar">
-                    <div class="progress"></div>
-                  </div>
+                <h3 class="panel-subtitle">💼 Гаманець</h3>
+                <div class="wallet-card">
+                    <p>Баланс: <strong id="wallet-balance">0</strong> $VANYA</p>
+                    <p>Авто-дохід: <strong id="wallet-auto">0</strong>/сек</p>
+                    <p>Сила тапу: <strong id="wallet-tap">1</strong></p>
                 </div>
-                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/kravetscoion2.mp3"></audio>
-              </div>
+            </div>
 
-              <div class="all-player">
-                <p>Кравець Коін</p>
-                <div class="player">
-                    <button class="play-pause"><img src="https://cdn-icons-png.flaticon.com/512/0/375.png" alt=""></button>
-                    <div class="status-bar">
-                    <div class="progress"></div>
-                  </div>
+            <div id="tab5" class="tab panel-scroll panel-animate">
+                <h2 class="panel-title">🎭 Персонажі</h2>
+                <p class="panel-hint">Купи скін для кнопки тапу. Після покупки обирай у інвентарі.</p>
+                <h3 class="panel-subtitle">🎒 Інвентар</h3>
+                <div id="skin-inventory" class="skin-inventory"></div>
+                <h3 class="panel-subtitle">🛍️ Магазин</h3>
+                <div id="characters-grid" class="characters-grid"></div>
+            </div>
+        </div>
+
+        <div id="character-modal" class="character-modal" aria-hidden="true">
+            <div class="character-modal-backdrop"></div>
+            <div class="character-modal-card">
+                <button type="button" id="character-modal-close" class="character-modal-close" aria-label="Закрити">×</button>
+                <div id="character-modal-preview" class="character-modal-preview"></div>
+                <h3 id="character-modal-title" class="character-modal-title"></h3>
+                <p id="character-modal-rarity" class="character-modal-rarity"></p>
+                <p id="character-modal-price" class="character-modal-price"></p>
+                <p class="character-modal-question">Дійсно хочеш купити цього персонажа?</p>
+                <div class="character-modal-actions">
+                    <button type="button" id="character-modal-cancel" class="buy-button btn-modal-cancel">Скасувати</button>
+                    <button type="button" id="character-modal-buy" class="buy-button">Купити</button>
                 </div>
-                <audio class="audio" src="https://ivankravetscoin.pythonanywhere.com/static/Kravets%20Coin%20.mp3"></audio>
-              </div>
+            </div>
+        </div>
 
-        </div>
-        <!-- Вкладка 3 -->
-        <div id="tab3" class="tab">
-            <p>ТУТ ШЕ ПУСТО</p>
-        </div>
-        <!-- Вкладка 4 -->
-        <div id="tab4" class="tab">
-            <h2>Вкладка 4</h2>
-            <p>Вміст для вкладки 1.</p>
-        </div>
-        <div class="bar">
-            <button disabled class ="bar-button"></button>
-        </div>
-        <div class="nameBalance">
-            <h3>$VANYA BALANCE:</h3>
-        </div>
-        <div class="money">
-            <img src="https://i.ibb.co/jLVJfTY/coin-mark.png">
-            <h1 id="balance">0</h1>
-        </div>
-        <button class="button-click">
-            <img class="front" src="https://i.ibb.co/NFMdyzb/Ivan-coin-button.png">
-        </button>
-        <button class="button-long" id="sendButton">
-            send data
-            <img src="https://cdn2.iconfinder.com/data/icons/internet/512/Lock-1024.png">
-        </button>
-        <p id="timeerror"class="timeerror"><span class="texterror" >ПОМИЛКА АВТОКЛІКЕР!</span></p>
-        <p id="error-message" style="color: red; display: none;">Занадто багато кліків! Спробуйте пізніше.</p>
-        <div id="trans-bg" class="tranparing"> </div>
-        <button id="close_id" class="close">
-            <img src="https://static-00.iconduck.com/assets.00/window-close-icon-1024x1024-wlckt0l6.png" alt="">
-        </button>
+        <p id="timeerror" class="timeerror">
+            <img class="texterrorimg" src="https://media.tenor.com/-EAB58d2eBgAAAAM/speed-i-am-speed.gif" alt="">
+        </p>
+        <div id="toast" class="toast"></div>
     </div>
     <script src="script.js"></script>
-
 </body>
 </html>
