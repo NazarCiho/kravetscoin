@@ -127,7 +127,7 @@
             <div id="tab1" class="tab panel-scroll panel-animate">
                 <h2 class="panel-title">📊 Статистика</h2>
                 <div class="stat-grid">
-                    <div class="stat-card"><span>Всього тапiв</span><strong id="stat-taps">0</strong></div>
+                    <div class="stat-card"><span>Всього тапів</span><strong id="stat-taps">0</strong></div>
                     <div class="stat-card"><span>Зароблено</span><strong id="stat-earned">0</strong></div>
                     <div class="stat-card"><span>Друзів</span><strong id="stat-friends">0</strong></div>
                     <div class="stat-card"><span>Завдань</span><strong id="stat-tasks">0</strong></div>
@@ -198,53 +198,6 @@
         </p>
         <div id="toast" class="toast"></div>
     </div>
-
-    <!-- Firebase SDK конфігурація та ініціалізація -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-      import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-database.js";
-
-      const firebaseConfig = {
-        apiKey: "AIzaSyABfaD46OwS-EyPretwLGdI4Nb1xA77L-I",
-        authDomain: "kravetscoin-48e05.firebaseapp.com",
-        databaseURL: "https://kravetscoin-48e05-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "kravetscoin-48e05",
-        storageBucket: "kravetscoin-48e05.firebasestorage.app",
-        messagingSenderId: "1086062871554",
-        appId: "1:1086062871554:web:37963248654884d14bd31b",
-        measurementId: "G-CNR1BPGCXY"
-      };
-
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-
-      // Глобальні функції збереження та завантаження через Firebase
-      window.cloudSave = function(userId, dataKey, value, callback) {
-        set(ref(db, `users/${userId}/${dataKey}`), value)
-          .then(() => { if (callback) callback(); })
-          .catch((err) => console.error("Firebase save error:", err));
-      };
-
-      window.cloudSaveAll = function(userId, fullState, callback) {
-        set(ref(db, `users/${userId}/state`), fullState)
-          .then(() => { if (callback) callback(); })
-          .catch((err) => console.error("Firebase saveAll error:", err));
-      };
-
-      window.cloudLoadAll = function(userId, callback) {
-        get(child(ref(db), `users/${userId}/state`)).then((snapshot) => {
-          if (snapshot.exists()) {
-            callback(snapshot.val());
-          } else {
-            callback(null);
-          }
-        }).catch((err) => {
-          console.error("Firebase load error:", err);
-          callback(null);
-        });
-      };
-    </script>
-
     <script src="script.js"></script>
 </body>
 </html>
