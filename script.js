@@ -838,6 +838,7 @@
     }
 
     // Завантаження гри з Firebase та запуск інтерфейсу
+    // Завантаження гри з Firebase та запуск інтерфейсу
     function initGame() {
         if (user) {
             els.userName.textContent = user.first_name + (user.last_name ? ` ${user.last_name}` : '');
@@ -849,10 +850,11 @@
         // Завантажуємо дані з Firebase хмари
         if (window.cloudLoadAll) {
             window.cloudLoadAll(userId, (cloudData) => {
-                if (cloudData) {
+                if (cloudData && typeof cloudData === 'object') {
+                    // Повністю об'єднуємо завантажені дані з хмари зі станом гри
                     Object.assign(state, cloudData);
                 } else {
-                    // Якщо даних ще немає, зберігаємо початковий стан
+                    // Якщо даних немає зовсім, створюємо початкові
                     persist();
                 }
                 
