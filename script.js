@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    // ——— Налаштування ———
+    // ——— Налаштування (змініть username свого бота) ———
     const CONFIG = {
         botUsername: 'KravetsCoin_bot',
         referralBonus: 500,
@@ -75,7 +75,7 @@
     const TASKS = [
         {
             id: 'tap100',
-            title: 'Першi 100 тапів',
+            title: 'Перші 100 тапів',
             desc: 'Натисни монету 100 разів',
             reward: 200,
             xp: 100,
@@ -140,6 +140,7 @@
     ];
 
     const DAILY_REWARDS = [100, 200, 350, 500, 750, 1000, 2000];
+
     const DEFAULT_TAP_IMAGE = 'https://i.ibb.co/NFMdyzb/Ivan-coin-button.png';
 
     const RARITY_LABELS = {
@@ -150,14 +151,62 @@
     };
 
     const CHARACTERS = [
-        { id: 'default', name: 'Vanya Classic', image: DEFAULT_TAP_IMAGE, price: 0, rarity: 'common' },
-        { id: 'street', name: 'Вуличний стиль', image: 'https://i.ibb.co/0yZfFC0T/Gemini-Generated-Image-8t23ap8t23ap8t23.png', price: 600, rarity: 'common' },
-        { id: 'neon', name: 'Неоновий воїн', image: 'https://i.ibb.co/8g7pfBc7/Gemini-Generated-Image-okjec2okjec2okje.png', price: 1200, rarity: 'rare' },
-        { id: 'cyber', name: 'Кібер-тапер', image: 'https://i.ibb.co/LXqjTJDb/Gemini-Generated-Image-daw1v6daw1v6daw1.png', price: 2200, rarity: 'rare' },
-        { id: 'gold', name: 'Золотий бос', image: 'https://i.ibb.co/jchZBQS/Gemini-Generated-Image-6ktip76ktip76kti.png', price: 4500, rarity: 'epic' },
-        { id: 'phantom', name: 'Фантом', image: 'https://i.ibb.co/7drLTLDn/Gemini-Generated-Image-g9agf0g9agf0g9ag.png', price: 7500, rarity: 'epic' },
-        { id: 'cosmic', name: 'Космічний Vanya', image: 'https://i.ibb.co/5W2cRTG0/Gemini-Generated-Image-74ftc374ftc374ft.png', price: 12000, rarity: 'legendary' },
-        { id: 'emperor', name: 'Імператор монет', image: 'https://i.ibb.co/1JdRSy0w/Gemini-Generated-Image-ol0zlool0zlool0z.png', price: 25000, rarity: 'legendary' },
+        {
+            id: 'default',
+            name: 'Vanya Classic',
+            image: DEFAULT_TAP_IMAGE,
+            price: 0,
+            rarity: 'common',
+        },
+        {
+            id: 'street',
+            name: 'Вуличний стиль',
+            image: 'https://i.ibb.co/0yZfFC0T/Gemini-Generated-Image-8t23ap8t23ap8t23.png',
+            price: 600,
+            rarity: 'common',
+        },
+        {
+            id: 'neon',
+            name: 'Неоновий воїн',
+            image: 'https://i.ibb.co/8g7pfBc7/Gemini-Generated-Image-okjec2okjec2okje.png',
+            price: 1200,
+            rarity: 'rare',
+        },
+        {
+            id: 'cyber',
+            name: 'Кібер-тапер',
+            image: 'https://i.ibb.co/LXqjTJDb/Gemini-Generated-Image-daw1v6daw1v6daw1.png',
+            price: 2200,
+            rarity: 'rare',
+        },
+        {
+            id: 'gold',
+            name: 'Золотий бос',
+            image: 'https://i.ibb.co/jchZBQS/Gemini-Generated-Image-6ktip76ktip76kti.png',
+            price: 4500,
+            rarity: 'epic',
+        },
+        {
+            id: 'phantom',
+            name: 'Фантом',
+            image: 'https://i.ibb.co/7drLTLDn/Gemini-Generated-Image-g9agf0g9agf0g9ag.png',
+            price: 7500,
+            rarity: 'epic',
+        },
+        {
+            id: 'cosmic',
+            name: 'Космічний Vanya',
+            image: 'https://i.ibb.co/5W2cRTG0/Gemini-Generated-Image-74ftc374ftc374ft.png',
+            price: 12000,
+            rarity: 'legendary',
+        },
+        {
+            id: 'emperor',
+            name: 'Імператор монет',
+            image: 'https://i.ibb.co/1JdRSy0w/Gemini-Generated-Image-ol0zlool0zlool0z.png',
+            price: 25000,
+            rarity: 'legendary',
+        },
     ];
 
     const telegram = window.Telegram?.WebApp;
@@ -169,35 +218,70 @@
     }
 
     const user = telegram?.initDataUnsafe?.user;
-    const userId = user?.id ? String(user.id) : ('guest_' + Math.random().toString(36).substr(2, 6));
+    const userId = user?.id ? String(user.id) : 'guest';
+    const storagePrefix = `vanya_${userId}_`;
 
-    // Початковий стан гри
+    function migrateLegacySave() {
+        if (localStorage.getItem(storagePrefix + 'balance') !== null) return;
+        const legacyBalance = parseInt(localStorage.getItem('balance'), 10);
+        if (!Number.isNaN(legacyBalance) && legacyBalance > 0) {
+            localStorage.setItem(storagePrefix + 'balance', JSON.stringify(legacyBalance));
+            localStorage.setItem(storagePrefix + 'clickValue', localStorage.getItem('clickValue') || '1');
+        }
+    }
+    migrateLegacySave();
+
+    function load(key, fallback) {
+        try {
+            const raw = localStorage.getItem(storagePrefix + key);
+            return raw !== null ? JSON.parse(raw) : fallback;
+        } catch {
+            return fallback;
+        }
+    }
+
+    function save(key, value) {
+        localStorage.setItem(storagePrefix + key, JSON.stringify(value));
+    }
+
     const state = {
-        balance: 0,
-        xp: 0,
-        totalTaps: 0,
-        totalEarned: 0,
-        totalUpgrades: 0,
-        referralCount: 0,
-        dailyClaims: 0,
-        dailyStreak: 0,
-        lastDailyClaim: null,
-        completedTasks: [],
-        upgradeLevels: {},
-        energy: 500,
-        maxEnergy: 500,
-        energyRegen: CONFIG.energyRegenPerSec,
-        boostActiveUntil: 0,
-        referredBy: null,
-        referralProcessed: false,
-        ownedCharacters: ['default'],
-        activeCharacter: 'default',
-        _lastLevel: 1
+        balance: load('balance', 0),
+        xp: load('xp', 0),
+        totalTaps: load('totalTaps', 0),
+        totalEarned: load('totalEarned', 0),
+        totalUpgrades: load('totalUpgrades', 0),
+        referralCount: load('referralCount', 0),
+        dailyClaims: load('dailyClaims', 0),
+        dailyStreak: load('dailyStreak', 0),
+        lastDailyClaim: load('lastDailyClaim', null),
+        completedTasks: load('completedTasks', []),
+        upgradeLevels: load('upgradeLevels', {}),
+        energy: load('energy', 500),
+        maxEnergy: load('maxEnergy', 500),
+        energyRegen: load('energyRegen', CONFIG.energyRegenPerSec),
+        boostActiveUntil: load('boostActiveUntil', 0),
+        referredBy: load('referredBy', null),
+        referralProcessed: load('referralProcessed', false),
+        ownedCharacters: load('ownedCharacters', ['default']),
+        activeCharacter: load('activeCharacter', 'default'),
     };
 
+    if (!state.ownedCharacters.includes('default')) {
+        state.ownedCharacters.unshift('default');
+    }
+
     UPGRADES.forEach((u) => {
-        state.upgradeLevels[u.id] = 0;
+        if (state.upgradeLevels[u.id] === undefined) state.upgradeLevels[u.id] = 0;
     });
+
+    const legacyTap = parseInt(localStorage.getItem('clickValue'), 10);
+    if (legacyTap > 1 && (state.upgradeLevels.tap || 0) < legacyTap - 1) {
+        state.upgradeLevels.tap = legacyTap - 1;
+    }
+    const legacyAuto = parseInt(localStorage.getItem('autoClickPower'), 10);
+    if (legacyAuto > 0 && (state.upgradeLevels.auto || 0) < legacyAuto) {
+        state.upgradeLevels.auto = legacyAuto;
+    }
 
     let lastClickTime = 0;
     let clickBurst = 0;
@@ -282,15 +366,12 @@
         return Date.now() < state.boostActiveUntil;
     }
 
-    // Збереження всього стану у Firebase
     function persist() {
-        if (window.cloudSaveAll) {
-            window.cloudSaveAll(userId, state);
-        }
+        Object.keys(state).forEach((k) => save(k, state[k]));
     }
 
     function formatNum(n) {
-        return Math.floor(n || 0).toLocaleString('uk-UA');
+        return Math.floor(n).toLocaleString('uk-UA');
     }
 
     function getCharacterById(id) {
@@ -473,9 +554,9 @@
 
     function checkLevelUp() {
         const { current } = getLevelInfo();
-        const prevLevel = state._lastLevel || 1;
+        const prevLevel = load('_lastLevel', 1);
         if (current.level > prevLevel) {
-            state._lastLevel = current.level;
+            save('_lastLevel', current.level);
             showToast(`🎉 Новий рівень ${current.level}: ${current.rank}!`);
             telegram?.HapticFeedback?.notificationOccurred?.('success');
             unlockBoostIfNeeded();
@@ -561,6 +642,11 @@
     }
 
     function checkTasks() {
+        TASKS.forEach((t) => {
+            if (!state.completedTasks.includes(t.id) && t.check(getTaskSnapshot())) {
+                /* auto-complete only when user opens tasks or we call explicitly */
+            }
+        });
         renderTasks();
     }
 
@@ -629,7 +715,32 @@
         state.referralProcessed = true;
         addCoins(CONFIG.newUserBonus, 'referral');
         showToast(`🎁 Вітальний бонус: +${CONFIG.newUserBonus} $VANYA`);
+
+        const refKey = `vanya_${referrerId}_pendingRefs`;
+        const pending = JSON.parse(localStorage.getItem(refKey) || '[]');
+        if (!pending.includes(userId)) {
+            pending.push(userId);
+            localStorage.setItem(refKey, JSON.stringify(pending));
+        }
         persist();
+    }
+
+    function processPendingReferrals() {
+        const refKey = `${storagePrefix}pendingRefs`;
+        const pending = JSON.parse(localStorage.getItem(refKey) || '[]');
+        if (!pending.length) return;
+
+        let count = 0;
+        pending.forEach(() => {
+            state.referralCount += 1;
+            addCoins(CONFIG.referralBonus, 'referral');
+            count += 1;
+        });
+        localStorage.removeItem(refKey);
+        if (count > 0) {
+            showToast(`👥 +${count} друзів! +${formatNum(count * CONFIG.referralBonus)} $VANYA`);
+            persist();
+        }
     }
 
     function onTap(event) {
@@ -783,7 +894,7 @@
 
         els.referralCount.textContent = state.referralCount;
         els.refBonusText.textContent = formatNum(CONFIG.referralBonus);
-        if (els.referralLink) els.referralLink.value = getReferralLink();
+        els.referralLink.value = getReferralLink();
 
         renderRanks();
         unlockBoostIfNeeded();
@@ -837,39 +948,17 @@
         });
     }
 
-    // Завантаження гри з Firebase та запуск інтерфейсу
-    // Завантаження гри з Firebase та запуск інтерфейсу
-    function initGame() {
-        if (user) {
-            els.userName.textContent = user.first_name + (user.last_name ? ` ${user.last_name}` : '');
-            if (user.photo_url) els.userPhoto.src = user.photo_url;
-        } else {
-            els.userName.textContent = 'Гість (відкрий у Telegram)';
-        }
-
-        // Завантажуємо дані з Firebase хмари
-        if (window.cloudLoadAll) {
-            window.cloudLoadAll(userId, (cloudData) => {
-                if (cloudData && typeof cloudData === 'object') {
-                    // Повністю об'єднуємо завантажені дані з хмари зі станом гри
-                    Object.assign(state, cloudData);
-                } else {
-                    // Якщо даних немає зовсім, створюємо початкові
-                    persist();
-                }
-                
-                processReferral();
-                renderUpgrades();
-                renderTasks();
-                renderCharacters();
-                applyTapSkin();
-                updateUI();
-                state._lastLevel = getLevelInfo().current.level;
-            });
-        }
+  // ——— Init ———
+    if (user) {
+        els.userName.textContent = user.first_name + (user.last_name ? ` ${user.last_name}` : '');
+        if (user.photo_url) els.userPhoto.src = user.photo_url;
+    } else {
+        els.userName.textContent = 'Гість (відкрий у Telegram)';
     }
 
-    // Події
+    processReferral();
+    processPendingReferrals();
+
     $('tap-btn').addEventListener('click', onTap);
 
     document.querySelectorAll('.tablinks').forEach((btn) => {
@@ -887,8 +976,13 @@
         openTab('tab4', tabBtn);
     });
 
-    $('btn-stats').addEventListener('click', () => { openTab('tab1', null); });
-    $('btn-character').addEventListener('click', () => { openTab('tab5', null); });
+    $('btn-stats').addEventListener('click', () => {
+        openTab('tab1', null);
+    });
+
+    $('btn-character').addEventListener('click', () => {
+        openTab('tab5', null);
+    });
 
     els.characterModalBuy.addEventListener('click', confirmBuyCharacter);
     els.characterModalCancel.addEventListener('click', closeCharacterModal);
@@ -923,22 +1017,23 @@
     setInterval(() => {
         if (state.energy < state.maxEnergy) {
             state.energy = Math.min(state.maxEnergy, state.energy + state.energyRegen / 10);
+            if (Math.floor(state.energy) % 5 === 0) persist();
         }
         const auto = getAutoIncome();
         if (auto > 0) {
             const tickIncome = auto / 10;
             state.balance += tickIncome;
             state.totalEarned += tickIncome;
+            persist();
         }
         updateUI();
     }, 100);
 
-    // Періодичне фонове збереження у хмару кожні 10 секунд
-    setInterval(() => {
-        persist();
-    }, 10000);
-
-    // Старт гри
-    initGame();
+    renderUpgrades();
+    renderTasks();
+    renderCharacters();
+    applyTapSkin();
+    updateUI();
+    save('_lastLevel', getLevelInfo().current.level);
 
 })();
